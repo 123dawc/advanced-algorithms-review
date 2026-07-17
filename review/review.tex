@@ -1,137 +1,108 @@
-# 论文 Review
+\documentclass[12pt,a4paper]{article}
 
-> **论文标题**：Optimal Resizable Arrays
->
-> **作者**：Robert E. Tarjan, Uri Zwick
->
-> **发表信息**：SOSA 2023 (Symposium on Simplicity in Algorithms), 2023
->
-> **Review 作者**：万宇（241880496）
->
-> **日期**：2026-07-11
+% ==================== 中文支持 ====================
+\usepackage[UTF8]{ctex}
 
----
+% ==================== 页面布局 ====================
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
 
-## 1. 引言
+% ==================== 数学与算法 ====================
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
 
-> 简要介绍本文 Review 的背景、目的和结构安排。
+% ==================== 图表 ====================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
 
-*(待撰写)*
+% ==================== 引用与超链接 ====================
+\usepackage{hyperref}
+\usepackage[style=gb7714-2015,backend=biber]{biblatex}
+\addbibresource{references/bibliography.bib}
 
----
+% ==================== 其他 ====================
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
 
-## 2. 问题背景
+% ==================== 定理环境 ====================
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{definition}[theorem]{定义}
 
-### 2.1 研究问题概述
+% ==================== 标题信息 ====================
+\title{\textbf{论文 Review：Optimal Resizable Arrays}}
+\author{万宇（241880496）}
+\date{2026年7月11日}
 
-*(待撰写)*
+\begin{document}
 
-### 2.2 问题形式化定义
+\maketitle
 
-*(待撰写)*
+\begin{center}
+\begin{tabular}{ll}
+\textbf{论文标题} & Optimal Resizable Arrays \\
+\textbf{作者}     & Robert E. Tarjan, Uri Zwick \\
+\textbf{发表信息} & SOSA 2023 (Symposium on Simplicity in Algorithms), 2023 \\
+\textbf{Review 作者} & 万宇（241880496） \\
+\textbf{日期}     & 2026-07-11 \\
+\end{tabular}
+\end{center}
 
-### 2.3 研究动机与重要性
+\tableofcontents
+\newpage
 
-*(待撰写)*
+% ==================== 1. 引言 ====================
+\section{引言}
 
----
+简要介绍本文 Review 的背景、目的和结构安排。
 
-## 3. 相关研究综述
+% （待撰写）
 
-### 3.1 早期经典工作
+% ==================== 2. 问题背景 ====================
+\section{基础知识}
+O代表上界,Ω代表下界.\\
+均摊分析是用来分析某一特定操作的开销的分析方法，比如分析数组插入元素带来的开销。\\
+均摊分析有聚合分析、记账分析、势能分析三种。\\
+聚合分析就是先把所有操作的开销加起来然后求平均。\\
+记账分析是一种简化版的势能分析，假设某一动作自身消耗为n，算的时候假设是m+n，即留m给别人，最后看m是多还是少还是刚好，调整m即可\\
+势能分析类似于中学物理学的势能和动能，就是说在考虑一个操作的时候不能只看它自己的开销还要关注它对之后操作的开销的影响。\\
+举个例子，假设一个vector采用超容则乘2复制的方法。那一个超容的插入的开销是O(n)，但它同时也便利了之后几次插入操作，因为它们不必再重复扩容和复制的过程了。\\
+这就好比小球沿着非光滑曲面冲上高处，消耗动能产生摩擦热同时储存重力势能。\\
+堆栈操作是一个很好的均摊分析的例子。\\
+假设一个栈s支持三种操作，开销如下：\\
+push:O(1);
+pop:O(1);
+pop_k:O(min(s.size(),k));
 
-*(待撰写)*
 
-### 3.2 近期相关工作
+\section{分工说明}
 
-*(待撰写)*
+本项目所有工作由同一人独立完成。包括：
 
-### 3.3 本文在文献中的定位
+\begin{itemize}
+    \item 论文选题与精读
+    \item 文献检索与综述
+    \item Review 正文撰写
+    \item 个人反思写作
+    \item 项目管理与版本控制
+\end{itemize}
 
-*(待撰写)*
+AI 工具（GitHub Copilot / ChatGPT 等）的使用记录见 \texttt{records/ai-usage.md}。
 
----
+% ==================== 8. 参考文献 ====================
+\section{参考文献}
 
-## 4. 核心技术分析
+详见 \texttt{references/bibliography.md}。
 
-### 4.1 算法核心思想
+% （参考文献列表将在 bibliography.md 中维护）
+% 如需使用 BibLaTeX，取消下一行注释：
+% \printbibliography
 
-*(待撰写)*
-
-### 4.2 算法细节与伪代码
-
-*(待撰写)*
-
-### 4.3 复杂度分析
-
-*(待撰写)*
-
-### 4.4 理论保证（如有）
-
-*(待撰写)*
-
-### 4.5 实验设计与结果分析
-
-*(待撰写)*
-
-#### 4.5.1 实验设置
-
-*(待撰写)*
-
-#### 4.5.2 主要结果
-
-*(待撰写)*
-
-#### 4.5.3 消融实验
-
-*(待撰写)*
-
----
-
-## 5. 批判性分析
-
-### 5.1 论文优点
-
-1. *(待撰写)*
-2. *(待撰写)*
-3. *(待撰写)*
-
-### 5.2 论文不足
-
-1. *(待撰写)*
-2. *(待撰写)*
-3. *(待撰写)*
-
-### 5.3 改进方向与未来工作
-
-*(待撰写)*
-
----
-
-## 6. 个人启发
-
-> 结合课程所学知识，谈谈阅读本文的收获。
-
-*(待撰写)*
-
----
-
-## 7. 分工说明
-
-> 本项目所有工作由同一人独立完成。包括：
->
-> - 论文选题与精读
-> - 文献检索与综述
-> - Review 正文撰写
-> - 个人反思写作
-> - 项目管理与版本控制
->
-> AI 工具（GitHub Copilot / ChatGPT 等）的使用记录见 `records/ai-usage.md`。
-
----
-
-## 8. 参考文献
-
-> 详见 `references/bibliography.md`。
-
-*(参考文献列表将在 bibliography.md 中维护)*
+\end{document}
