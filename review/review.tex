@@ -93,23 +93,64 @@ n次push：O（n）\\
 则push资源增加，开销为2\\
 pop资源减少，开销为0\\
 故为O(1)\\
-\section {这篇文章讲了什么？}
-一共就讲了两个重点，一是$N+O(N^{1/r})$这是他们的核心结论，比之前的研究更好。\\
-另一个给定了一个下界，说明你不可能做到一个数组的实现：在保持空间$N+O(n^{1/r})$的同时还指望grow的时间小于Ω(r)。也就是证明了他们的研究是最好的\\
+\section{这篇文章讲了什么？}
+一共就讲了两个重点：一是在给定的条件下给出了一种数组的实现，使得访问代价为O(1)且空间为$N+O(N^{1/r})$，这是他们的核心结论，比之前的同方向的研究更好。
+另一个是给定一个下界，说明你不可能做到一个数组的实现：在保持空间 $N+O(N^{1/r})$ 的同时还指望 grow 的时间小于 $\Omega(r)$，也就是让其他人别再试图往那个方向钻了。
 \section{这篇文章的分层}
-第一节：introduction;
-第二节：问题定义;
-第三节：讲述前人的工作;
-第四节：关于一个有用的lower bound;
-第五节：描述r=3时的resize和store开销;
-第六节：扩展至任意$r>=2$的情况;
-第七节：对第六节中的方法的一个小瑕疵进行优化；
-第八节：提出抽象增长游戏：一个抽象的数学模型；
-第九节：用抽象增长游戏来证明在空间为$N+O（N^{1/r}）$时他们的实现就是最牛逼的;\\
-接下来的review我会按照原文的结构分成三个部分:\\
-背景和铺垫：1~4\\
-提出新方法：5~7\\
-证明无法更牛逼：8~9\\
+\begin{itemize}[left=0pt]
+    \item 第一节：Introduction
+    \item 第二节：问题定义
+    \item 第三节：讲述前人的工作
+    \item 第四节：关于一个有用的 lower bound
+    \item 第五节：描述 $r=3$ 时的 resize 和 store 开销
+    \item 第六节：扩展至任意 $r\ge2$ 的情况
+    \item 第七节：对第六节中的方法的一个小瑕疵进行优化
+    \item 第八节：提出抽象增长游戏（一个抽象的数学模型）
+    \item 第九节：用抽象增长游戏证明在空间为 $N+O(N^{1/r})$ 时他们的实现是最优的
+\end{itemize}
+
+接下来的 review 我会按照原文的结构分成四个部分：
+
+背景和铺垫：1--4
+
+提出新方法：5--7
+
+证明无法更牛逼：8--9
+
+我自己的一些思考
+\section{背景和铺垫}
+
+\subsection{问题定义}
+这篇文章讨论的问题不包括在arrary中间加或改元素的情况。\\
+他们还假设了他们的系统里可以使用类似于free和malloc这样的工具来分配和释放任意位置和大小的空间且这种操作对每个单位的代价是常数级的。
+也就是说，他们不管内存管理系统的实现，默认它已经足够好了。
+然后他们介绍了一种叫做block的东西，他们令一个可变数组由若干定长数组的组合来实现的。这篇文章讨论的所有数据结构本质上都是blocks。
+这是一个值得注意的地方，因为所有主流编程语言的可变数组都是由连续内存空间来实现的而不是用所谓的block。实际上我之前从来没听过block这种设计。
+block一共可分为三种：数据block：直接存目标数据，索引block：存指向其它block的指针和辅助(auxiliary)block:存一些别的。这有点类似于操作系统中的分页内存管理机制中的页表和数据块和辅助位。\\
+而这种分类是何意味呢？这主要是为了引出他们自己给出的一个丈量即：Definition  2.1$((s(N),t(N))$-implementation).Let $s(N),t(N)$ be  two  non-decreasing  functions.A  resizable  array  data  structure  is  said  to  be  
+an$(s(N),t(N))$-implementation  if  it  uses  at  most  $N+s(N)$space to store an array of size N, and at most $N+t(N)$ space during a grow or shrinkoperation on an array of sizeN.
+这个定义几乎贯穿全文也是本文最大的创新。即将一个可变数组的空间消耗分两种情况来看一种是增或减时的开销以及其它时候的开销。也就是他们敏锐的捕捉到了一个可变数组的开销不是一成不变的，这里面有可以操作的空间。而之前的所有研究者都没有抓住这一点。
+\subsection{对前人工作的引用和论述}
+\subsubsection{Two basic data structure}
+一共讲了两种基本的数据结构，第一种是最蠢的，用一个N空间的定长数组来模拟一个可变数组，每一次删除或增加元素都要重新分配空间然后完成复制。这几乎没有意义，作者写它估计是为了水字数。
+第二种是用的最广的即 geometric expansion /shrinking 结构，就是我们最熟悉的C++的vector的实现。均摊分析算下来grow 的代价为(1+1/a),shrink的代价为(1/a)。
+这个结构已经不错了，也非常practical。
+\subsubsection{The data structure of Sitarski}
+
+\includegraphics[width=1.0\textwidth]{Sitarski.png}
+Sitarski的实现名字叫hashed array tree(HAT)。名字很高级但实际上既没有哈希也没有树。
+它本质上就是数组套数组，还是页表那一套。它就是把一个数组切成小块每一个block大小为B，然后再来一个索引块，也为B，所有块大小都是B。
+找元素的时候就查两次数组就好了。它的优势在于每次超容的时候只要加一个索引指向一直被维护的空数据block即可。
+但其实它复杂度和geometric差不多。总的来说这还是一种很简单的很容易想到的实现。
+下一个实现就是它的变形。
+\subsubsection{The data structures of Brodnik et al.}
+这个比较有意思，这个实现的美妙之处是 no rebuild is necessary and data items do not need moving。
+它的实现思路和上一个类似。都是先查指针再插数据块。但不同之处在于每个数据块大小不一且呈现递增趋势。
+之前Sitarski的做法的缺点在于当N越来越大，B由于要满足单次查询O(1)的条件而不得不扩大，这一扩大，就要重建和搬元素。
+但是Brodnik的做法却不同，由于B自动增大，假设按1,2,3,4,.......n这个顺序来,最后的B和N的关系刚好是$B=\sqrt{2N}$。
+但复杂度和前两种差不多，依旧是$N+O(\sqrt{N})$。
+作者之后拿这个算法开刀来展开他的理论\\
+\subsection{The lower bound of Brodnik et al. and its extension}
 
 \section{分工说明}
 
