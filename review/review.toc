@@ -8,5 +8,8 @@
 \contentsline {subsubsection}{\numberline {5.2.1}Two basic data structure}{4}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}The data structure of Sitarski}{4}{subsubsection.5.2.2}%
 \contentsline {subsubsection}{\numberline {5.2.3}The data structures of Brodnik et al.}{5}{subsubsection.5.2.3}%
-\contentsline {section}{\numberline {6}分工说明}{5}{section.6}%
-\contentsline {section}{\numberline {7}参考文献}{5}{section.7}%
+\contentsline {subsection}{\numberline {5.3}The lower bound of Brodnik et al. and its extension}{5}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}新方法的提出}{6}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}一个简单的$(O(N^{\frac {1}{3}}),O(N^{\frac {2}{3}}))$的实现}{6}{subsubsection.5.4.1}%
+\contentsline {section}{\numberline {6}分工说明}{6}{section.6}%
+\contentsline {section}{\numberline {7}参考文献}{6}{section.7}%
