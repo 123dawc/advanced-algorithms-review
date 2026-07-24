@@ -11,5 +11,6 @@
 \contentsline {subsection}{\numberline {5.3}The lower bound of Brodnik et al. and its extension}{5}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}新方法的提出}{6}{subsection.5.4}%
 \contentsline {subsubsection}{\numberline {5.4.1}一个简单的$(O(N^{\frac {1}{3}}),O(N^{\frac {2}{3}}))$的实现}{6}{subsubsection.5.4.1}%
-\contentsline {section}{\numberline {6}分工说明}{6}{section.6}%
-\contentsline {section}{\numberline {7}参考文献}{6}{section.7}%
+\contentsline {subsubsection}{\numberline {5.4.2}一个$(O(rN^{\frac {1}{r}}),O(N^{1-\frac {1}{r}}))$��实现的优化}{7}{subsubsection.5.4.2}%
+\contentsline {section}{\numberline {6}分工说明}{8}{section.6}%
+\contentsline {section}{\numberline {7}参考文献}{8}{section.7}%
