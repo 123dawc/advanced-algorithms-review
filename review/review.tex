@@ -10,9 +10,9 @@
 
 % ==================== 数学与算法 ====================
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{mathtools}
 
 % ==================== 图表 ====================
 \usepackage{graphicx}
@@ -261,7 +261,114 @@ $(O(rN^{\frac{1}{r}}),O(N^{1-\frac{1}{r}}))$这个实现，我们带入进去就
 \subsubsection{增长游戏}
 增长游戏的篇幅很长，有6页都在讲这个玩意儿。但说白了，他就是对现有的数据结构做一个简化，之间不是贴了个伪代码吗？这个增长游戏就是把其它操作的开销删掉，只留下元素拷贝的开销。
 因为作者想证明的是如果你只允许$ N + cN^{1/r}$ 的永久额外空间（即 $k ≈ cN^(1/r)$），那么均摊代价至少是 $\Omega(r)$。
-所以如果在一个理想的模型里都没法超过这个下界，实际情况就更不可能了。
+所以如果在一个理想的模型里都没法超过这个下界，实际情况就更不可能了。我接下来简单讲讲我对增长游戏的理解。\\
+用(N,k,l)来表示一个增长游戏。
+N表示一共要填入N个元素，k表示一共有k个块可以被填入，每一个内存块都是一个数组，l表示一个有元素的数组中允许的未被利用空间的最大值。
+显然，某个时刻最多只有一个arrary存在未被装满的情况。所以每个时刻额外开销最多k+l,k表示指针数目，l表示多余空间。
+接下来我用伪代码展示增长游戏的所有规则。//
+% ─── 全局状态 ───
+\textbf{全局状态}
+\begin{quote}
+\begin{tabular}{@{}ll@{}}
+$k$          & 子数组数量上限 \\
+$\ell$       & 第一个非空子数组允许的空位数 \\
+$N$          & 当前已插入元素总数 \\
+$A[1\ldots k]$ & 每个子数组存储的元素个数（$0$ 表示空） \\
+总代价       & $= 0$
+\end{tabular}
+\end{quote}
+
+% ─── 主过程 ───
+\begin{algorithm}[ht]
+\caption{插入一个新元素：\texttt{Grow()}}
+\label{alg:grow}
+\begin{algorithmic}[1]
+\Statex \qquad\textbf{── 情况一：第一个非空子数组还有空位 ──}
+\State $i \gets \Call{FirstNonEmpty}{}$ \Comment{最小的满足 $A[i]>0$ 的 $i$}
+\If{$i \neq \text{null} \land A[i] < \ell+1$}
+    \State $A[i] \gets A[i] + 1$
+    \State 总代价 $\gets$ 总代价 $+ 1$
+    \State $N \gets N + 1$
+    \State \Return{}
+\EndIf
+
+\Statex \qquad\textbf{── 情况二：全满但还有空子数组 ──}
+\State $j \gets \Call{LastEmpty}{}$ \Comment{最大的满足 $A[j]=0$ 的 $j$}
+\If{$j \neq \text{null}$}
+    \State 分配新子数组，大小 $\gets \ell+1$
+    \State $A[j] \gets 1$ \Comment{新元素放在第一个位置，剩 $\ell$ 个空位}
+    \State 总代价 $\gets$ 总代价 $+ 1$
+    \State $N \gets N + 1$
+    \State \Return{}
+\EndIf
+
+\Statex \qquad\textbf{── 情况三：$k$ 个子数组全满 ──}
+\State \Comment{玩家选择要合并多少个子数组}
+\State $i \gets \Call{ChooseMerge}{}$ \Comment{玩家选择，$1 \le i \le k$}
+
+\State $sum \gets 0$
+\For{$m \gets 1$ \textbf{to} $i$}
+    \State $sum \gets sum + A[m]$ \Comment{统计要拷贝的元素总数}
+\EndFor
+
+\State 分配新子数组，大小 $\gets (\ell+1) + sum$
+\State 将 $A[i], A[i-1], \ldots, A[1]$ 的元素按顺序拷入新子数组
+\State 将新元素放在新子数组的第一个空位上
+\State 释放旧子数组 $A[1\ldots i]$
+
+\State $A[i] \gets sum + 1$ \Comment{新子数组成为新的 $A[i]$}
+\For{$m \gets 1$ \textbf{to} $i-1$}
+    \State $A[m] \gets 0$ \Comment{前面的全部变空}
+\EndFor
+
+\State 总代价 $\gets$ 总代价 $+ 1 + sum$ \Comment{每个元素拷贝算一次}
+\State $N \gets N + 1$
+\end{algorithmic}
+\end{algorithm}
+
+% ─── 辅助函数 ───
+\begin{algorithm}[ht]
+\caption{辅助函数}
+\label{alg:helpers}
+\begin{algorithmic}[1]
+\Function{FirstNonEmpty}{}
+    \For{$i \gets 1$ \textbf{to} $k$}
+        \If{$A[i] > 0$}
+            \State \Return{$i$}
+        \EndIf
+    \EndFor
+    \State \Return{$\text{null}$} \Comment{全空}
+\EndFunction
+
+\Statex
+
+\Function{LastEmpty}{}
+    \State $last \gets \text{null}$
+    \For{$j \gets 1$ \textbf{to} $k$}
+        \If{$A[j] = 0$}
+            \State $last \gets j$
+        \EndIf
+    \EndFor
+    \State \Return{$last$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+% ─── 关键点 ───
+\textbf{关键点}
+\begin{itemize}[nosep]
+    \item 玩家只在\textbf{情况三}有选择权，其余两种情况是强制的可以视为系统自己操作。
+    \item 代价 = \textbf{拷贝操作次数}。情况一和情况二是 $1$（只放一个元素），情况三是 $1 + {}$拷贝的元素总数。
+    \item 空子数组必须在最前面这个约束，由合并操作自动保证（$A_1$ 到 $A_{i-1}$ 被清零，刚好成为空子数组的"前缀"）。
+    \item $\ell = 0$ 时，每个非空子数组都是满的（大小 $=1$），情况一和情况二退化成同一种。
+\end{itemize}
+规则很简单，接下来用$C_{N,,k,l}$表示最小总开销，$A_{N,k,l}$表示$\frac{C_{N,,k,l}}{N}$\\
+我们开始寻找$A_{N,k,l}$。原文在这里讲了大半天，其实就四个要点。
+一是定义状态，二是算精确表达式，三是算均摊下界，四是做扩展。
+定义：a、去l
+算：二项
+下界：二项
+扩展：合并
 \subsubsection{确实无法更牛逼了}
 \section{分工说明}
 
