@@ -6,29 +6,18 @@
 
 ---
 
-## 检索计划
-
-### 检索关键词
-
-| 类别 | 关键词（英文） | 关键词（中文） |
-|------|--------------|--------------|
-| 核心主题 | *(待填写)* | *(待填写)* |
-| 相关方法 | *(待填写)* | *(待填写)* |
-| 应用领域 | *(待填写)* | *(待填写)* |
-| 替代方案 | *(待填写)* | *(待填写)* |
-
 ### 检索数据库
 
-| 数据库 | URL | 优先级 | 备注 |
-|--------|-----|--------|------|
-| Google Scholar | https://scholar.google.com | ⭐⭐⭐ | 综合检索，引文追踪 |
-| DBLP | https://dblp.org | ⭐⭐⭐ | CS 领域权威索引 |
-| Semantic Scholar | https://www.semanticscholar.org | ⭐⭐⭐ | AI 增强搜索 |
-| arXiv | https://arxiv.org | ⭐⭐ | 预印本，最新研究 |
-| ACM Digital Library | https://dl.acm.org | ⭐⭐ | 顶级会议论文 |
-| IEEE Xplore | https://ieeexplore.ieee.org | ⭐⭐ | 工程与算法 |
-| Web of Science | https://www.webofscience.com | ⭐ | 综合学术索引 |
-| Connected Papers | https://www.connectedpapers.com | ⭐ | 可视化引文关系 |
+| 数据库              | URL                             | 优先级 | 备注               |
+| ------------------- | ------------------------------- | ------ | ------------------ |
+| Google Scholar      | https://scholar.google.com      | ⭐⭐⭐ | 综合检索，引文追踪 |
+| DBLP                | https://dblp.org                | ⭐⭐⭐ | CS 领域权威索引    |
+| Semantic Scholar    | https://www.semanticscholar.org | ⭐⭐⭐ | AI 增强搜索        |
+| arXiv               | https://arxiv.org               | ⭐⭐   | 预印本，最新研究   |
+| ACM Digital Library | https://dl.acm.org              | ⭐⭐   | 顶级会议论文       |
+| IEEE Xplore         | https://ieeexplore.ieee.org     | ⭐⭐   | 工程与算法         |
+| Web of Science      | https://www.webofscience.com    | ⭐     | 综合学术索引       |
+| Connected Papers    | https://www.connectedpapers.com | ⭐     | 可视化引文关系     |
 
 ### 检索策略
 
@@ -44,8 +33,8 @@
 ### 检索日志
 
 | 日期 | 数据库 | 检索式 | 命中数 | 筛选后数量 | 备注 |
-|------|--------|--------|--------|-----------|------|
-|      |        |        |        |           |      |
+| ---- | ------ | ------ | ------ | ---------- | ---- |
+|      |        |        |        |            |      |
 
 ---
 
@@ -54,14 +43,14 @@
 ### 核心相关文献（必读）
 
 | 编号 | 标题 | 作者 | 年份 | 会议/期刊 | 关联度 |
-|------|------|------|------|----------|--------|
-|      |      |      |      |          |        |
+| ---- | ---- | ---- | ---- | --------- | ------ |
+|      |      |      |      |           |        |
 
 ### 扩展相关文献（选读）
 
 | 编号 | 标题 | 作者 | 年份 | 会议/期刊 | 关联度 |
-|------|------|------|------|----------|--------|
-|      |      |      |      |          |        |
+| ---- | ---- | ---- | ---- | --------- | ------ |
+|      |      |      |      |           |        |
 
 ---
 

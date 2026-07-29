@@ -16,6 +16,11 @@
 \contentsline {subsubsection}{\numberline {5.4.4}进一步空间优化：去除r这个小瑕疵}{10}{subsubsection.5.4.4}%
 \contentsline {subsection}{\numberline {5.5}为何无法更牛逼}{11}{subsection.5.5}%
 \contentsline {subsubsection}{\numberline {5.5.1}增长游戏}{11}{subsubsection.5.5.1}%
-\contentsline {subsubsection}{\numberline {5.5.2}确实无法更牛逼了}{13}{subsubsection.5.5.2}%
-\contentsline {section}{\numberline {6}分工说明}{13}{section.6}%
-\contentsline {section}{\numberline {7}参考文献}{14}{section.7}%
+\contentsline {paragraph}{前置：归纳假设}{14}{section*.2}%
+\contentsline {paragraph}{第一步：确定 $n'$}{15}{section*.3}%
+\contentsline {paragraph}{第二步：代入递推}{15}{section*.4}%
+\contentsline {paragraph}{第三步：曲棍球棒恒等式收尾}{15}{section*.5}%
+\contentsline {paragraph}{代回}{16}{section*.6}%
+\contentsline {subsubsection}{\numberline {5.5.2}确实无法更牛逼了}{17}{subsubsection.5.5.2}%
+\contentsline {section}{\numberline {6}分工说明}{17}{section.6}%
+\contentsline {section}{\numberline {7}参考文献}{17}{section.7}%

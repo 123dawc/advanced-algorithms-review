@@ -31,9 +31,4 @@ takeO(r) amortized time.为什么这里要说摊销成本？
 然后就是一大堆推理
 https://oi-wiki.org/basic/amortized-analysis/
 分析复杂度参考这个。
----
-
-## 第二遍阅读：仔细阅读（1-2 小时）
-
-7/17,先了解摊还成本。这个写进review里面。
-然后把结构写进去。
+--------------------
